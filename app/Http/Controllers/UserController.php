@@ -16,7 +16,8 @@ class UserController extends Controller
         // SELECT * FROM users Order By id DESC
         // $users = \App\Models\User::all();
         $users = \App\Models\User::orderBy('id', 'DESC')->get();
-        return view('user.index', compact('users'));
+        $title = 'Data User';
+        return view('user.index', compact('users', 'title'));
     }
 
     /**

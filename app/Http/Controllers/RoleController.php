@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class CategoriesController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class CategoriesController extends Controller
     public function index()
     {
         // select * from categories order by id desc
-        $datas = Category::orderBy('id', 'desc')->get();
-        $title = 'Data Categories';
-        return view('categories.index', compact('datas', 'title'));
+        $datas = Role::orderBy('id', 'desc')->get();
+        $title = 'Data Role';
+        return view('roles.index', compact('datas', 'title'));
     }
 
     /**
@@ -24,8 +24,8 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        $title = 'Add Categories';
-        return view('categories.create', compact('title'));
+        $title = 'Add Role';
+        return view('roles.create', compact('title'));
     }
 
     /**
@@ -34,9 +34,9 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         // insert into categories
-        Category::create($request->all());
+        Role::create($request->all());
         alert()->success('Success', 'Insert success');
-        return redirect()->to('category');
+        return redirect()->to('role');
     }
 
     /**
@@ -53,9 +53,9 @@ class CategoriesController extends Controller
     public function edit(string $id)
     {
         //select * from categories where id = $id
-        $edit = Category::find($id);
-        $title = "Edit Categories";
-        return view('categories.edit', compact('edit', 'title'));
+        $edit = Role::find($id);
+        $title = "Edit Role";
+        return view('roles.edit', compact('edit', 'title'));
     }
 
     /**
@@ -63,11 +63,11 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $update = Category::find($id);
-        $update->category_name = $request->category_name;
+        $update = Role::find($id);
+        $update->name = $request->name;
         $update->save();
         alert()->success('Success', 'Updated success');
-        return redirect()->to('category');
+        return redirect()->to('role');
     }
 
     /**
@@ -75,8 +75,8 @@ class CategoriesController extends Controller
      */
     public function destroy(string $id)
     {
-        Category::find($id)->delete();
+        Role::find($id)->delete();
         alert()->success('Success', 'Delete success');
-        return redirect()->to('category');
+        return redirect()->to('role');
     }
 }
