@@ -1,4 +1,5 @@
 let currentCategory = "all";
+let products = [];
 
 function filterCategory(category, event) {
   currentCategory = category;
@@ -17,9 +18,12 @@ function filterCategory(category, event) {
   renderProducts();
 }
 
-function renderProducts(searchProduct = "") {
-  const productGrid = document.getElementById("productGrid");
+async function renderProduct(SearchProduct = "") {
+    const productGrid = document.getElementById("productGrid");
   productGrid.innerHTML = "";
+
+  const response = await fetch("/get-products");
+  products = await response.json(); 
 
   // filter
   const filtered = products.filter((p) => {
